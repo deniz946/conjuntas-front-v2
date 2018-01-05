@@ -1,0 +1,48 @@
+<div class="uk-placeholder">
+  <h3>Está a punto de pagar y verificarse para la actual conjunta
+    <b>{{actualPack.name}}</b>
+  </h3>
+  <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+    <label>
+      <input class="uk-checkbox" type="checkbox" (ngModelChange)="totalPrice = 1" [(ngModel)]="indMorePacks"> Te interesa alguna de las anteriores conjuntas?</label>
+  </div>
+  <hr>
+  <div uk-alert class="center uk-alert-primary">
+      <h3>Precio total: {{totalPrice}}€</h3>
+  </div>
+
+  
+  <div class="center" *ngIf="!indMorePacks">
+      <button class="uk-button uk-button-primary uk-button-large" (click)="onPay()" title="Al darle a pagar, se activará el botón de validar" uk-tooltip="pos: bottom">Pagar</button>
+      <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [disabled]="!paid" uk-toggle="target: #modal-close-default">Validar</button>
+  </div>
+  <section *ngIf="indMorePacks">
+      <div class="uk-panel uk-panel-scrollable" style="height: 350px">
+          <ul class="uk-list">
+              <li *ngFor="let pack of packs; let i = index"><label><input class="uk-checkbox" type="checkbox" (ngModelChange)="changedPacks(i, $event)" [checked]="pack.checked" [(ngModel)]="pack.checked"> {{pack.name}}</label></li>
+          </ul>
+      </div>
+      <div class="center" *ngIf="indMorePacks" style="margin-top:15px">
+          <button class="uk-button uk-button-primary uk-button-large" (click)="onPay()" title="Al darle a pagar, se activará el botón de validar" uk-tooltip>Pagar</button>
+          <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [disabled]="!paid" uk-toggle="target: #modal-close-default">Validar</button>
+      </div>
+  </section>
+</div>
+
+<!-- This is the modal with the default close button -->
+<div id="modal-close-default" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <button class="uk-modal-close-default" type="button" uk-close></button>
+        <h2 class="uk-modal-title">Validación {{actualPack?.name}}</h2>
+        <div class="uk-alert-primary" uk-alert>
+            <p>Acaba de pagar {{totalPrice}}€, rellene este formulario para terminar de validarse</p>
+        </div>
+          <form [formGroup]="validationForm" (ngSubmit)="onValidate(validationForm.value)">
+              <div class="uk-margin">
+                <input class="uk-input uk-form-width-medium uk-form-large" formControlName="username" type="text" placeholder="Usuario">
+                <input class="uk-input uk-form-width-medium uk-form-large" formControlName="email" type="email" placeholder="Email">
+                <button class="uk-button uk-button-primary uk-form-large">Validar</button>
+              </div>
+          </form>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.uk-accordion-title {
+    color: #1E87F0;
+}
+
+.uk-accordion-content {
+    color: black;
+    font-size: 17px;
+    text-align: justify;
+}

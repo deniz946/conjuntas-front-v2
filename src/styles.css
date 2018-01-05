@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+
+.center {
+	text-align: center;
+}
+
+.logo {
+	border-radius: 50%;
+}
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: #1E87F0;
+	color: white;
+	text-align: center;
+ }
+
+ .footer a {
+	 color: white;
+ }
+
+ .hand-cursor {
+	 cursor: pointer;
+ }
