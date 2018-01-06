@@ -25,3 +25,8 @@
  .hand-cursor {
 	 cursor: pointer;
  }
+
+ .pack-finished {
+	 background: #F0313A;
+	 color: white;
+ }

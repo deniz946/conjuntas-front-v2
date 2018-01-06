@@ -7,7 +7,7 @@ import { environment } from '../environments/environment';
 import UIkit from 'uikit';
 import { ActivePackService } from './core/services/active-pack.service';
 import { CustomPack } from './componentes/validate/validate.component';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
   public packs: Pack[] = [];
   public actualPack: Pack;
   public activePack: string;
+  public packEnded = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +39,6 @@ export class AppComponent implements OnInit {
   getPacks() {
     this.http.get(environment.API + 'pack/?public=true').
       subscribe((res: Pack[]) => {
-        console.log(res);
         this.packs = res.filter((item: CustomPack) => item._id !== this.activePack);
       });
   }
@@ -52,6 +52,7 @@ export class AppComponent implements OnInit {
   getActualPack() {
     this.http.get(environment.API + 'pack/' + this.activePack)
       .subscribe((pack: Pack) => {
+        this.checkAvailability(pack.dateEnd);
         this.actualPack = pack;
       });
   }
@@ -61,8 +62,20 @@ export class AppComponent implements OnInit {
       .subscribe((pack: any) => {
         this.activePackService.activePack.next(pack.pack);
         this.activePack = pack.pack;
+        // this.checkAvailability(pack)
         this.getPacks();
         this.getActualPack();
       });
+  }
+
+  checkAvailability(date) {
+    const now = moment();
+    // for testing
+    // const dateEnd = moment(date).subtract(9, 'days').subtract(2, 'hours');
+    const dateEnd = moment(date);
+    const dif = dateEnd.diff(now, 'hours');
+    if (0 > dif) {
+      this.packEnded = true;
+    }
   }
 }

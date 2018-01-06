@@ -6,8 +6,11 @@
         <ul class="uk-flex-center" uk-tab>
             <li class="uk-active" (click)="selectTab(1)"><a>
                 Conjunta activa
-                <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack">
+                <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded">
                     <countdown-timer [end]="actualPack.dateEnd"></countdown-timer>
+                </span>
+                <span class="uk-badge pack-finished" style="margin-bottom: 5px" *ngIf="actualPack && packEnded">
+                    acabada
                 </span>
             </a></li>
             <li><a (click)="selectTab(2)">Validación</a></li>
@@ -19,7 +22,7 @@
     </div>
     <ng-container>
         <app-actual-pack *ngIf="selectedTab === 1 && actualPack" [pack]="actualPack"></app-actual-pack>
-        <app-validate *ngIf="selectedTab === 2 && actualPack" [actualPack]="actualPack" [packs]="packs"></app-validate>
+        <app-validate *ngIf="selectedTab === 2 && actualPack" [actualPack]="actualPack" [packs]="packs" [packEnded]="packEnded"></app-validate>
         <app-faq *ngIf="selectedTab === 3 && actualPack"></app-faq>
     </ng-container>
 </div>

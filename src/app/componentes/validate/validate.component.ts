@@ -19,6 +19,7 @@ export class CustomPack extends Pack {
 export class ValidateComponent implements OnInit {
   @Input() actualPack: Pack;
   @Input() packs: CustomPack[];
+  @Input() packEnded: boolean;
   public indMorePacks = false;
   public paid = false;
   public totalPrice = 1;
