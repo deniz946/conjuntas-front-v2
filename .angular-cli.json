@@ -22,7 +22,7 @@
         "assets/css/uikit.css",
         "assets/js/uikit.js",
         "assets/js/uikit-icons.min.js",
-        "styles.css"
+        "sass/styles.scss"
       ],
       "scripts": [
         "../node_modules/moment/min/moment.min.js"
@@ -59,10 +59,11 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "class": {
       "spec": false
     },
-    "component": {}
+    "component": {
+    }
   }
 }

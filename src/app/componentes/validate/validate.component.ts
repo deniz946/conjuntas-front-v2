@@ -14,7 +14,7 @@ export class CustomPack extends Pack {
 @Component({
   selector: 'app-validate',
   templateUrl: './validate.component.html',
-  styleUrls: ['./validate.component.css']
+  styleUrls: ['./validate.component.scss']
 })
 export class ValidateComponent implements OnInit {
   @Input() actualPack: Pack;
