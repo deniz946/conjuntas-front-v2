@@ -13,8 +13,8 @@
 
   
   <div class="center" *ngIf="!indMorePacks">
-      <button class="uk-button uk-button-primary uk-button-large" (click)="onPay()" [hidden]="packEnded" title="Al darle a pagar, se activará el botón de validar" uk-tooltip="pos: bottom">Pagar</button>
-      <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [hidden]="packEnded" [disabled]="!paid" uk-toggle="target: #modal-close-default">Validar</button>
+      <button class="uk-button uk-button-primary uk-button-large" (click)="onPay()" [hidden]="packEnded">Pagar</button>
+      <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [hidden]="packEnded" uk-toggle="target: #modal-close-default">Validar</button>
       <h3 [hidden]="!packEnded" style="color: red">Conjunta terminada, vuelva aquí cuando haya alguna conjutna en progreso.</h3>
   </div>
   <section *ngIf="indMorePacks">
@@ -24,8 +24,8 @@
           </ul>
       </div>
       <div class="center" *ngIf="indMorePacks" style="margin-top:15px">
-          <button class="uk-button uk-button-primary uk-button-large" [hidden]="packEnded" (click)="onPay()" title="Al darle a pagar, se activará el botón de validar" uk-tooltip>Pagar</button>
-          <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [hidden]="packEnded" [disabled]="!paid" uk-toggle="target: #modal-close-default">Validar</button>
+          <button class="uk-button uk-button-primary uk-button-large" [hidden]="packEnded" (click)="onPay()" >Pagar</button>
+          <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [hidden]="packEnded" uk-toggle="target: #modal-close-default">Validar</button>
       </div>
   </section>
 </div>

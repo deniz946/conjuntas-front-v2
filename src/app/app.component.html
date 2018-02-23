@@ -4,7 +4,7 @@
     </div>
     <div class="uk-margin-medium-top">
         <ul class="uk-flex-center" uk-tab>
-            <li class="uk-active" (click)="selectTab(1)"><a>
+            <li class="uk-active" (click)="selectTab(ComponentsEnum.ACTIVE_PACK)"><a>
                 Conjunta activa
                 <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded">
                     <countdown-timer [end]="actualPack.dateEnd"></countdown-timer>
@@ -13,9 +13,10 @@
                     acabada
                 </span>
             </a></li>
-            <li><a (click)="selectTab(2)">Validación</a></li>
-            <li><a (click)="selectTab(3)">Dudas y preguntas</a></li>
-            <li class="hand-cursor" (click)="goTo('https://www.paypal.me/humbleconjuntas')"><i class="fa fa-paypal" style="font-size: 25px; margin-bottom:10px" title="Si estás satisfecho con las conjuntas puedes pagarme un café" uk-tooltip></i></li>
+            <li><a (click)="selectTab(ComponentsEnum.INSTRUCTIONS)">Instrucciones</a></li>
+            <li><a (click)="selectTab(ComponentsEnum.VALIDATION)">Validación</a></li>
+            <li><a (click)="selectTab(ComponentsEnum.FAQ)">Dudas y preguntas</a></li>
+            <li class="hand-cursor" [hidden]="true" (click)="goTo('https://www.paypal.me/humbleconjuntas')"><i class="fa fa-paypal" style="font-size: 25px; margin-bottom:10px" title="Si estás satisfecho con las conjuntas puedes pagarme un café" uk-tooltip></i></li>
             <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0K_d_4C91buMJpMKw')"><i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Oficial de Conjuntas Humble Bundle" uk-tooltip></i></li>
             <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0vIqfESl7qwfaWW-A')"><i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Offtopic de Conjuntas Humble Bundle" uk-tooltip></i></li>
         </ul>
@@ -24,5 +25,6 @@
         <app-actual-pack *ngIf="selectedTab === 1 && actualPack" [pack]="actualPack"></app-actual-pack>
         <app-validate *ngIf="selectedTab === 2 && actualPack" [actualPack]="actualPack" [packs]="packs" [packEnded]="packEnded"></app-validate>
         <app-faq *ngIf="selectedTab === 3 && actualPack"></app-faq>
+        <app-instructions (componentChanged)="selectTab($event)" *ngIf="selectedTab === 4 && actualPack"></app-instructions>
     </ng-container>
 </div>

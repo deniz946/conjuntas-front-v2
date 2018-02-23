@@ -9,6 +9,7 @@ import { ActualPackComponent } from './componentes/actual-pack/actual-pack.compo
 import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { FaqComponent } from './componentes/faq/faq.component';
 import { ActivePackService } from './core/services/active-pack.service';
+import { InstructionsComponent } from './componentes/instructions/instructions.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ActivePackService } from './core/services/active-pack.service';
     AppComponent,
     ActualPackComponent,
     ValidateComponent,
-    FaqComponent
+    FaqComponent,
+    InstructionsComponent
   ],
   imports: [
     BrowserModule,

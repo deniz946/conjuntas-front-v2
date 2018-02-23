@@ -8,6 +8,7 @@ import UIkit from 'uikit';
 import { ActivePackService } from './core/services/active-pack.service';
 import { CustomPack } from './componentes/validate/validate.component';
 import * as moment from 'moment';
+import { Mycomponents } from './core/enums/mycomponents.enum';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   public actualPack: Pack;
   public activePack: string;
   public packEnded = false;
-
+  public ComponentsEnum = Mycomponents;
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
