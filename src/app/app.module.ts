@@ -10,6 +10,16 @@ import { CountdownTimerModule } from 'ngx-countdown-timer';
 import { FaqComponent } from './componentes/faq/faq.component';
 import { ActivePackService } from './core/services/active-pack.service';
 import { InstructionsComponent } from './componentes/instructions/instructions.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MainComponent } from './main/main.component';
+import { BooksComponent } from './books/books.component';
+
+const routes: Routes = [
+  {path: '', component: MainComponent},
+  // {path: 'details/:id', component: PackDetailComponent},
+  {path: 'books/:id', component: BooksComponent},
+  { path: '**', component: MainComponent }
+];
 
 
 @NgModule({
@@ -18,14 +28,17 @@ import { InstructionsComponent } from './componentes/instructions/instructions.c
     ActualPackComponent,
     ValidateComponent,
     FaqComponent,
-    InstructionsComponent
-  ],
+    InstructionsComponent,
+    MainComponent,
+    BooksComponent
+],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes, {useHash: true}),
     CountdownTimerModule.forRoot(),
     FormsModule,
     ReactiveFormsModule

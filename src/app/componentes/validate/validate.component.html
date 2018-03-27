@@ -11,7 +11,7 @@
       <h3>Precio total: {{totalPrice}}€</h3>
   </div>
 
-  
+
   <div class="center" *ngIf="!indMorePacks">
       <button class="uk-button uk-button-primary uk-button-large" (click)="onPay()" [hidden]="packEnded">Pagar</button>
       <button class="uk-button uk-button-secondary uk-button-large" (click)="onValidate()" [hidden]="packEnded" uk-toggle="target: #modal-close-default">Validar</button>
@@ -20,7 +20,16 @@
   <section *ngIf="indMorePacks">
       <div class="uk-panel uk-panel-scrollable" style="height: 350px">
           <ul class="uk-list">
-              <li *ngFor="let pack of packs; let i = index"><label><input class="uk-checkbox" type="checkbox" (ngModelChange)="changedPacks(i, $event)" [checked]="pack.checked" [(ngModel)]="pack.checked"> {{pack.name}}</label></li>
+              <li *ngFor="let pack of packs; let i = index">
+                <label>
+                  <input class="uk-checkbox"
+                  type="checkbox"
+                  (ngModelChange)="changedPacks(i, $event)"
+                  [checked]="pack.checked"
+                  [(ngModel)]="pack.checked">
+                    {{pack.name}} <i class="fa fa-book" style="cursor:pointer" title="Ver libros" *ngIf="pack.books.length" (click)="showBooks(pack, i)"></i>
+                </label>
+              </li>
           </ul>
       </div>
       <div class="center" *ngIf="indMorePacks" style="margin-top:15px">

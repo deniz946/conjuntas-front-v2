@@ -5,6 +5,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Pack } from '../../core/models/Pack';
 import UIkit from 'uikit';
 import { ActivePackService } from '../../core/services/active-pack.service';
+import { Router } from '@angular/router';
 
 export class CustomPack extends Pack {
   _id: string;
@@ -29,6 +30,7 @@ export class ValidateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private router: Router,
     private activePackService: ActivePackService,
     private http: HttpClient) {
     this.validationForm = this.formBuilder.group({
@@ -100,6 +102,13 @@ export class ValidateComponent implements OnInit {
     const url = `https://www.paypal.me/humbleconjuntas/${this.totalPrice}`;
     window.open(url, '_blank');
     this.paid = true;
+  }
+
+  showBooks(pack, index): void {
+    console.log(pack);
+    this.changedPacks(index, true);
+    window.open(`${window.location.href}books/${pack._id}`);
+    // this.router.navigate(['books', pack._id]);
   }
 
 }

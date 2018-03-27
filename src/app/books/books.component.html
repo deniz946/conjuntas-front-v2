@@ -1,0 +1,27 @@
+<div class="uk-container" style="margin-bottom: 90px">
+  <h2> <i class="fa fa-arrow-left" uk-tooltip="title: Volver" style="cursor:pointer" (click)="goToHome()" *ngIf="backButton"></i> Libros de la conjunta {{currentPack.name}}</h2>
+  <div class="uk-alert-warning" uk-alert *ngIf="currentPack.videos">
+    <a class="uk-alert-close" uk-close></a>
+    <h3>Videos extra</h3>
+    <p>Además de los presentes libros, la conjunta también contiene material en formato de vídeo que lo podréis encontrar la carpeta VIDEOS</p>
+  </div>
+  <h2 style="text-align: center">{{books.length}} libros</h2>
+  <div class="uk-child-width-1-3@m" uk-grid style="margin-top: 50px">
+    <div *ngFor="let book of books">
+      <div class="uk-card uk-card-default">
+        <div class="uk-card-media-top" style="text-align: center">
+          <img width="150px" src="{{book?.thumbnail}}">
+        </div>
+        <div class="uk-card-body">
+          <h5 class="uk-card-title">{{book?.title}}</h5>
+          <p>{{book.description|slice:0:100}}...</p>
+          <br>
+          <button class="uk-button uk-button-primary" (click)="completeDescription(book)">descripción completa</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="width: 100%; height: 350px; border: 2px dotted blue;" class="uk-text-middle" *ngIf="currentPack.videos">
+    <h2 style="text-align: center; vertical-align: middle; line-height: 350px; color:blue ">Videos de la conjunta en la carpeta VIDEOS</h2>
+  </div>
+</div>

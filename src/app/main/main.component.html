@@ -1,0 +1,51 @@
+<div class="uk-container uk-container-small" style="margin-bottom: 90px">
+  <div class="center">
+    <img class="logo" src="https://i.gyazo.com/cfc775bcc22192d8f0da5621381c09ad.png" width="200px">
+  </div>
+  <div class="uk-margin-medium-top" *ngIf="actualPack">
+    <ul class="uk-flex-center" uk-tab>
+      <li class="uk-active" (click)="selectTab(ComponentsEnum.ACTIVE_PACK)">
+        <a>
+          Conjunta activa
+          <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded">
+            <countdown-timer [end]="actualPack.dateEnd"></countdown-timer>
+          </span>
+          <span class="uk-badge pack-finished" style="margin-bottom: 5px" *ngIf="actualPack && packEnded">
+            acabada
+          </span>
+        </a>
+      </li>
+      <li>
+        <a (click)="selectTab(ComponentsEnum.INSTRUCTIONS)">Instrucciones</a>
+      </li>
+      <li>
+        <a (click)="selectTab(ComponentsEnum.BOOKS)">Libros</a>
+      </li>
+      <li>
+        <a (click)="selectTab(ComponentsEnum.VALIDATION)">Validación</a>
+      </li>
+      <li>
+        <a (click)="selectTab(ComponentsEnum.FAQ)">Dudas y preguntas</a>
+      </li>
+      <li class="hand-cursor" [hidden]="true" (click)="goTo('https://www.paypal.me/humbleconjuntas')">
+        <i class="fa fa-paypal" style="font-size: 25px; margin-bottom:10px" title="Si estás satisfecho con las conjuntas puedes pagarme un café"
+          uk-tooltip></i>
+      </li>
+      <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0K_d_4C91buMJpMKw')">
+        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Oficial de Conjuntas Humble Bundle"
+          uk-tooltip></i>
+      </li>
+      <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0vIqfESl7qwfaWW-A')">
+        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Offtopic de Conjuntas Humble Bundle"
+          uk-tooltip></i>
+      </li>
+    </ul>
+  </div>
+  <ng-container>
+    <app-actual-pack *ngIf="selectedTab === 1 && actualPack" [pack]="actualPack"></app-actual-pack>
+    <app-validate *ngIf="selectedTab === 2 && actualPack" [actualPack]="actualPack" [packs]="packs" [packEnded]="packEnded"></app-validate>
+    <app-faq *ngIf="selectedTab === 3 && actualPack"></app-faq>
+    <app-instructions (componentChanged)="selectTab($event)" *ngIf="selectedTab === 4 && actualPack"></app-instructions>
+    <app-books [backButton]="false" [packId]="actualPack.id" *ngIf="selectedTab === 5 && actualPack"></app-books>
+  </ng-container>
+</div>
