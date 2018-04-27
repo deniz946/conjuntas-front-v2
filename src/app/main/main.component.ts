@@ -18,8 +18,10 @@ export class MainComponent implements OnInit {
   public selectedTab = 1;
   public packs: Pack[] = [];
   public actualPack: Pack;
+  public auxActualPack: Pack;
   public activePack: string;
   public packEnded = false;
+  public activePacks: Pack[] = [];
   public ComponentsEnum = Mycomponents;
   constructor(
     private formBuilder: FormBuilder,
@@ -36,9 +38,11 @@ export class MainComponent implements OnInit {
   }
 
   getPacks() {
-    this.http.get(environment.API + 'pack/?public=true').
+    this.http.get(environment.API + 'public/packs').
       subscribe((res: Pack[]) => {
-        this.packs = res.filter((item: CustomPack) => item._id !== this.activePack);
+        this.packs = res.filter(
+          (item: CustomPack) => !this.activePacks.find(
+            item2 => item2._id === item._id));
       });
   }
 
@@ -48,22 +52,38 @@ export class MainComponent implements OnInit {
     }
   }
 
+  openActualPacksModal() {
+    const element = document.getElementById('modal-packs');
+    UIkit.modal(element).show();
+  }
+
   getActualPack() {
-    this.http.get(environment.API + 'pack/' + this.activePack)
+    this.http.get(environment.API + 'public/packs/' + this.activePack)
       .subscribe((pack: Pack) => {
         this.checkAvailability(pack.dateEnd);
         this.actualPack = pack;
+        const element = document.getElementById('modal-packs');
+        UIkit.modal(element).hide();
       });
   }
 
+  onModalActiveSelect(pack: Pack) {
+    this.activePack = pack['_id'];
+    this.checkAvailability(pack.dateEnd);
+    this.activePackService.activePack.next(this.activePack);
+    this.getPacks();
+    this.getActualPack();
+  }
+
   getActivePack() {
-    this.activePackService.getActivePack()
-      .subscribe((pack: any) => {
-        this.activePackService.activePack.next(pack.pack);
-        this.activePack = pack.pack;
-        // this.checkAvailability(pack)
-        this.getPacks();
-        this.getActualPack();
+    this.activePackService.getActivePacks()
+      .subscribe((packs: Pack[]) => {
+        this.activePacks = packs['packs'];
+        if (this.activePacks.length > 1) {
+          this.openActualPacksModal();
+        } else {
+          this.onModalActiveSelect(this.activePacks[0]);
+        }
       });
   }
 

@@ -13,6 +13,7 @@ import { InstructionsComponent } from './componentes/instructions/instructions.c
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { BooksComponent } from './books/books.component';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {path: '', component: MainComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
     FaqComponent,
     InstructionsComponent,
     MainComponent,
-    BooksComponent
+    BooksComponent,
+    SearchComponent
 ],
   imports: [
     BrowserModule,

@@ -24,6 +24,7 @@ export class ValidateComponent implements OnInit {
   public indMorePacks = false;
   public paid = false;
   public totalPrice = 1;
+  public verificationEmail: string;
   public validationForm: FormGroup;
   public checkedPacks: CustomPack[] = [];
   public activePack: string;
@@ -46,6 +47,19 @@ export class ValidateComponent implements OnInit {
     });
   }
 
+  verify() {
+    this.http.get(`${environment.API}public/packs/verify/${this.activePack}/${this.verificationEmail}`)
+    .subscribe(
+      (res: any) => {
+        if (res.err) {
+          UIkit.notification({ message: `El usuario ${this.verificationEmail} no fue validado correctamente` });
+        } else {
+          UIkit.notification({ message: `El email ${this.verificationEmail} está validado correctmante` });
+        }
+      }
+    )
+  }
+
   onValidate(user) {
     if (user) {
       if (this.validationForm.valid) {
@@ -58,7 +72,7 @@ export class ValidateComponent implements OnInit {
           if (this.totalPrice > 0 && this.indMorePacks) {
             params.extra = selectedPacks;
           }
-          this.http.post(environment.API + 'users/register/' + this.activePack, params).subscribe((response: any) => {
+          this.http.post(environment.API + 'public/packs/register/' + this.activePack, params).subscribe((response: any) => {
             UIkit.notification({ message: response.msg });
             // Reload web
             this.validationForm.reset();
@@ -99,7 +113,7 @@ export class ValidateComponent implements OnInit {
     if (!this.indMorePacks) {
       this.totalPrice = 1;
     }
-    const url = `https://www.paypal.me/humbleconjuntas/${this.totalPrice}`;
+    const url = this.actualPack['paypal'] ? `${this.actualPack['paypal']}${this.totalPrice}` : 'http://paypal.com';
     window.open(url, '_blank');
     this.paid = true;
   }

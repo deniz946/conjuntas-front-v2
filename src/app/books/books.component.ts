@@ -27,7 +27,7 @@ export class BooksComponent implements OnInit {
   }
 
   getBooks() {
-    this.http.get(`${environment.API}pack/books/${this.packId}`)
+    this.http.get(`${environment.API}public/packs/books/${this.packId}`)
       .subscribe(
       (books: any) => this.books = books
       );
@@ -39,7 +39,7 @@ export class BooksComponent implements OnInit {
   }
 
   getCurrentPack() {
-    this.http.get(environment.API + 'pack' + '/' + this.packId).subscribe((pack: any) => {
+    this.http.get(environment.API + 'public/packs' + '/' + this.packId).subscribe((pack: any) => {
       this.currentPack = pack;
     });
   }

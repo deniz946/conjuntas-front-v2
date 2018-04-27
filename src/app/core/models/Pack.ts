@@ -4,7 +4,9 @@ export class Pack {
   email_title: string;
   finished: boolean;
   link: string;
+  _id?: string;
   name: string;
+  paypal: string;
   users: any[];
   comments: string[];
 }

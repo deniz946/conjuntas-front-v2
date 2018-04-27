@@ -1,4 +1,4 @@
-<div class="uk-container uk-container-small" style="margin-bottom: 90px">
+<div class="uk-container uk-container-medium" style="margin-bottom: 90px" *ngIf="actualPack">
   <div class="center">
     <img class="logo" src="https://i.gyazo.com/cfc775bcc22192d8f0da5621381c09ad.png" width="200px">
   </div>
@@ -27,17 +27,18 @@
       <li>
         <a (click)="selectTab(ComponentsEnum.FAQ)">Dudas y preguntas</a>
       </li>
+      <li>
+        <app-search></app-search>
+      </li>
       <li class="hand-cursor" [hidden]="true" (click)="goTo('https://www.paypal.me/humbleconjuntas')">
         <i class="fa fa-paypal" style="font-size: 25px; margin-bottom:10px" title="Si estás satisfecho con las conjuntas puedes pagarme un café"
           uk-tooltip></i>
       </li>
       <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0K_d_4C91buMJpMKw')">
-        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Oficial de Conjuntas Humble Bundle"
-          uk-tooltip></i>
+        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Oficial de Conjuntas Humble Bundle" uk-tooltip></i>
       </li>
       <li class="hand-cursor" (click)="goTo('https://t.me/joinchat/ANqPh0vIqfESl7qwfaWW-A')">
-        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Offtopic de Conjuntas Humble Bundle"
-          uk-tooltip></i>
+        <i class="fa fa-telegram" style="font-size: 25px; margin-bottom:10px" title="Grupo Offtopic de Conjuntas Humble Bundle" uk-tooltip></i>
       </li>
     </ul>
   </div>
@@ -49,3 +50,22 @@
     <app-books [backButton]="false" [packId]="actualPack.id" *ngIf="selectedTab === 5 && actualPack"></app-books>
   </ng-container>
 </div>
+
+<!-- This is the modal with the default close button -->
+<div id="modal-packs" uk-modal esc-close="false" bg-close="false">
+  <div class="uk-modal-dialog uk-modal-body">
+    <div class="uk-modal-header">
+        <h2 class="uk-modal-title" style="margin-bottom: 25px">Selecciona la conjunta en la que quieras participar</h2>
+    </div>
+    <fieldset class="uk-fieldset">
+      <div class="uk-margin">
+        <select class="uk-select" [(ngModel)]="auxActualPack">
+          <option *ngFor="let pack of activePacks; let i = index" [ngValue]="pack">{{pack.name}}</option>
+        </select>
+      </div>
+    </fieldset>
+    <button class="uk-button uk-button-primary" (click)="onModalActiveSelect(auxActualPack)">Ok</button>
+  </div>
+</div>
+
+<button *ngIf="activePacks.length !== 1" (click)="openActualPacksModal()" id="myBtn" uk-tooltip="title: Volver a elegir otra conjunta"><i class="fa fa-book" style="font-size:40px"></i></button>

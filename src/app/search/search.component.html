@@ -1,0 +1,17 @@
+<div class="uk-margin" style="max-width: 250px">
+  <input class="uk-input"
+    type="text"
+    (blur)="onBlur()"
+    (focus)="searchBook(searchInput)"
+    placeholder="Buscar libro..."
+    [(ngModel)]="searchInput"
+    (ngModelChange)="searchBook($event)"
+    id="searchInput">
+  <div style="width: 100%; height: 100px; max-width: 195px;">
+    <ul class="uk-list uk-link-text" style="margin-top: 4px">
+      <li *ngFor="let book of foundBooks">
+        <a href="{{book.thumbnail}}" target="_blank">{{book.title}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -33,3 +33,13 @@
 	 background: #F0313A;
 	 color: white;
  }
+
+ #myBtn {
+	width: 60px;
+	height: 60px;
+	position: fixed;
+	z-index: 999;
+	right: 20px;
+	bottom: 20px;
+	border-radius: 30px;
+}
