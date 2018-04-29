@@ -52,12 +52,12 @@ export class ValidateComponent implements OnInit {
     .subscribe(
       (res: any) => {
         if (res.err) {
-          UIkit.notification({ message: `El usuario ${this.verificationEmail} no fue validado correctamente` });
+          UIkit.notification({ message: `El usuario ${this.verificationEmail} no está validado` });
         } else {
           UIkit.notification({ message: `El email ${this.verificationEmail} está validado correctmante` });
         }
       }
-    )
+    );
   }
 
   onValidate(user) {

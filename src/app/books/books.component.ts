@@ -8,9 +8,10 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.scss']
 })
-export class BooksComponent implements OnInit {
+export class BooksComponent implements OnInit  {
   @Input() private packId: string;
   @Input() backButton = true;
+  public selectedBook: string;
   public books: any[] = [];
   public currentPack: any = {};
   constructor(
@@ -18,7 +19,11 @@ export class BooksComponent implements OnInit {
     private http: HttpClient,
     private router: Router
   ) {
-    this.route.params.subscribe(param => this.packId = param.id);
+    this.route.params.subscribe(param => {
+      this.packId = param.id;
+      this.selectedBook = param.bookId;
+      console.log(this.selectedBook);
+    });
   }
 
   ngOnInit() {
@@ -26,10 +31,22 @@ export class BooksComponent implements OnInit {
     this.getCurrentPack();
   }
 
+  checkSelectedBook() {
+    if(this.selectedBook) {
+      const bookPos = this.books.findIndex(b => b.id === this.selectedBook);
+      const book = this.books[bookPos];
+      this.books.splice(bookPos, 1);
+      this.books.unshift(book);
+    }
+  }
+
   getBooks() {
     this.http.get(`${environment.API}public/packs/books/${this.packId}`)
       .subscribe(
-      (books: any) => this.books = books
+      (books: any) => {
+        this.books = books;
+        this.checkSelectedBook();
+      }
       );
   }
 

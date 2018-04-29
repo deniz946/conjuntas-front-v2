@@ -14,11 +14,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main/main.component';
 import { BooksComponent } from './books/books.component';
 import { SearchComponent } from './search/search.component';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
+
 
 const routes: Routes = [
   {path: '', component: MainComponent},
   // {path: 'details/:id', component: PackDetailComponent},
   {path: 'books/:id', component: BooksComponent},
+  {path: 'books/:id/:bookId', component: BooksComponent},
+
   { path: '**', component: MainComponent }
 ];
 
@@ -36,9 +41,10 @@ const routes: Routes = [
 ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
+    AutoCompleteModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true}),
     CountdownTimerModule.forRoot(),

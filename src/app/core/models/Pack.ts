@@ -1,3 +1,4 @@
+import { Book } from './Book';
 export class Pack {
   created_at: Date;
   dateEnd: Date;
@@ -6,6 +7,7 @@ export class Pack {
   link: string;
   _id?: string;
   name: string;
+  books?: Book[];
   paypal: string;
   users: any[];
   comments: string[];

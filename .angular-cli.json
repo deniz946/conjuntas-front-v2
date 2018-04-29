@@ -22,6 +22,8 @@
         "assets/css/uikit.css",
         "assets/js/uikit.js",
         "assets/js/uikit-icons.min.js",
+        "../node_modules/primeng/resources/themes/omega/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
         "sass/styles.scss"
       ],
       "scripts": [

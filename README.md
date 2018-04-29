@@ -1,6 +1,20 @@
-# ConjuntasFrontV2
+# Conjuntas Humble
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.9.
+![CodigoDiario](https://i.gyazo.com/d885c6d55bcda7e0a9077779e5f3eca8.png)
+## [Live preview](http://codigodiario.me/conjuntas-humble)
+
+## Features
+  * Search of avaible books with RxJS Subject
+  * Instructions page with videos
+  * List of books belonging to the current Humble Pack
+  * Validate yourself to the current Humble Pack
+  * Validate yourself for past Humble Packs
+  * See books of past Humble Packs
+  * Status Checker
+  * FAQ section
+  * Activity announcments
+  * Usage of Google's Books API for retrieving the needed metadata
+  * Backend with Node.js + Express + MongoDB
 
 ## Development server
 

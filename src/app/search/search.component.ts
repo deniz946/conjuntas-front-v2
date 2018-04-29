@@ -1,6 +1,7 @@
+import { Pack } from './../core/models/Pack';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { debounceTime, map, distinctUntilChanged, mergeMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
@@ -14,14 +15,25 @@ import { Book } from '../core/models/Book';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  @Input()
+  set packs(packs: Pack[]) {
+    this._packs = packs;
+  }
+
+  get packs(): Pack[] {
+    return this._packs;
+  }
   public searchInput: string;
   public books: Book[] = [];
+  text: string;
+  results: string[];
   public foundBooks: Book[];
   public searchValue: Subject<string> = new Subject();
   public searchValue$: Observable<string> = this.searchValue
     .asObservable()
     .pipe(distinctUntilChanged())
     .pipe(debounceTime(500));
+  private _packs: Pack[];
   constructor(private activePack: ActivePackService) { }
 
   ngOnInit() {
@@ -29,11 +41,14 @@ export class SearchComponent implements OnInit {
     this.searchValue$.subscribe((value: string) => {
       if (this.books.length && (value && value.length)) {
         this.foundBooks = [];
+        this.results = [];
+        const aux_results = [];
         this.books.forEach((book: Book) => {
           if ((book.title.toLocaleLowerCase()).includes(value)) {
-            this.foundBooks.push(book);
+            aux_results.push(book);
           }
         });
+        this.results = aux_results;
       } else {
         this.foundBooks = [];
       }
@@ -46,13 +61,24 @@ export class SearchComponent implements OnInit {
       .subscribe(
       (books: Book[]) => {
         this.books = books;
-        const input = document.getElementById('searchInput');
       }
       );
   }
 
   searchBook(query: string) {
     this.searchValue.next(query);
+  }
+
+  goToPack(book: Book): void {
+    const packOfBook = this.packs.find(pack => !!pack.books.find(b => b.id === book.id));
+    if(packOfBook) {
+      this.showBooks(packOfBook, book.id);
+    }
+  }
+
+  showBooks(pack: Pack, bookId: string): void {
+    this.text = '';
+    window.open(`${window.location.href}books/${pack._id}/${bookId}`);
   }
 
   onBlur(): void {

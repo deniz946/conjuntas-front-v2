@@ -7,7 +7,7 @@
       <li class="uk-active" (click)="selectTab(ComponentsEnum.ACTIVE_PACK)">
         <a>
           Conjunta activa
-          <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded">
+          <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded && selectedTab !== ComponentsEnum.ACTIVE_PACK">
             <countdown-timer [end]="actualPack.dateEnd"></countdown-timer>
           </span>
           <span class="uk-badge pack-finished" style="margin-bottom: 5px" *ngIf="actualPack && packEnded">
@@ -28,7 +28,7 @@
         <a (click)="selectTab(ComponentsEnum.FAQ)">Dudas y preguntas</a>
       </li>
       <li>
-        <app-search></app-search>
+        <app-search [packs]="packs"></app-search>
       </li>
       <li class="hand-cursor" [hidden]="true" (click)="goTo('https://www.paypal.me/humbleconjuntas')">
         <i class="fa fa-paypal" style="font-size: 25px; margin-bottom:10px" title="Si estás satisfecho con las conjuntas puedes pagarme un café"
