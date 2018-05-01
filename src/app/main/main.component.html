@@ -7,7 +7,7 @@
       <li class="uk-active" (click)="selectTab(ComponentsEnum.ACTIVE_PACK)">
         <a>
           Conjunta activa
-          <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded && selectedTab !== ComponentsEnum.ACTIVE_PACK">
+          <span class="uk-badge" style="margin-bottom: 5px" *ngIf="actualPack && !packEnded">
             <countdown-timer [end]="actualPack.dateEnd"></countdown-timer>
           </span>
           <span class="uk-badge pack-finished" style="margin-bottom: 5px" *ngIf="actualPack && packEnded">
