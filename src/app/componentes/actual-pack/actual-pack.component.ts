@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component, OnInit, Input } from '@angular/core';
 import { Pack } from '../../core/models/Pack';
 
@@ -8,6 +9,7 @@ import { Pack } from '../../core/models/Pack';
 })
 export class ActualPackComponent implements OnInit {
   @Input() public pack: Pack;
+  public API = environment.API;
 
   constructor() { }
 
